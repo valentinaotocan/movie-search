@@ -1,34 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+interface Movies {
+  Title: string;
+  imbdID: string;
+  Poster: string;
+  Year: string;
 }
 
-export default App
+function App() {
+  const [query, setQuery] = useState("");
+  const [movies, setMovies] = useState<Movies[]>([]);
+  
+  async function handleFetch() {
+    const response = await fetch(
+      `https://www.omdbapi.com/?s=${query}&apikey=5d763802`
+    );
+    const data = await response.json();
+    setMovies(data.Search);
+    console.log(data.Search)
+  }
+
+  return (
+    <section>
+      <h1>Enter name of a movie:</h1>
+      {/* <form> */}
+        <input
+          type="text"
+          value={query}
+          onChange={(event) => {
+            setQuery(event.target.value);
+          }}
+        />
+        <button onClick={handleFetch}>Search</button>
+      {/* </form> */}
+      <div>
+        {movies.map((movie) => {
+          return (
+            <div key={movie.imbdID}>
+              <img src={movie.Poster} alt="" />
+              <h2>{movie.Title}</h2>
+              <p>{movie.Year}</p>
+            </div>
+          )
+          })}
+      </div>
+    </section>
+  );
+}
+
+export default App;
