@@ -1,1 +1,9 @@
 @import 'reset';
+@import 'variables';
+@import 'functions';
+@import 'App';
+
+body {
+  background-color: $light-yellow;
+  padding: toRem(34px) toRem(24px);
+}

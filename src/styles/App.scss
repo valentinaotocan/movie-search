@@ -1,0 +1,40 @@
+.movie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  button {
+    margin: toRem(25px) 0;
+    padding: toRem(5px) toRem(25px);
+    &:hover {
+      cursor: pointer;
+      border: 2px solid $soft-red;
+      color: $soft-red;
+      font-weight: bold;
+    }
+  }
+  input {
+    padding-left: toRem(5px);
+  }
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: toRem($big);
+    gap: toRem(20px);
+    &__content {
+      border: 4px dashed $soft-red;
+      width: toRem($small);
+      height: toRem($small);
+      background-size: cover;
+      &__text {
+        background-color: $transparent-white;
+        text-align: center;
+        margin: 0 10px;
+      }
+      @media(max-width: toRem(372px)) {
+        width: toRem(200px);
+      }
+    }
+  }
+}
