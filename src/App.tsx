@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-interface Movies {
+interface Movie {
   Title: string;
-  imbdID: string;
+  imdbID: string;
   Poster: string;
   Year: string;
 }
 
 function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState<Movies[]>([]);
+  const [movies, setMovies] = useState<Movie[] | undefined>([]);
 
   async function handleFetch() {
     const response = await fetch(
@@ -17,36 +17,52 @@ function App() {
     );
     const data = await response.json();
     setMovies(data.Search);
-    console.log(data.Search);
   }
 
   return (
     <section className="movie">
       <h1>Enter name of a movie:</h1>
-      {/* <form> */}
-      <input
-        type="text"
-        value={query}
-        onChange={(event) => {
-          setQuery(event.target.value);
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          // const form = event.currentTarget
+          // const data = new FormData(form)
+          // const query = data.get('query')
+          // if (typeof query !== 'string') {
+          //   throw new Error('query ne postoji, ups!')
+          // }
+          handleFetch();
         }}
-      />
-      <button onClick={handleFetch}>Search</button>
-      {/* </form> */}
+      >
+        <input
+          type="text"
+          // name="query"
+          value={query}
+          onChange={(event) => {
+            setQuery(event.target.value);
+          }}
+        />
+        <button type="submit">Search</button>
+      </form>
       <div className="movie__container">
-        {movies.map((movie) => {
-          return (
-            <div key={movie.imbdID} className="movie__container__content" style={{backgroundImage: `url(${movie.Poster})`}}>
+        {typeof movies === "undefined" ? (
+          <p className="movie__container__not-exist">Oops! The movie doesn't exist.</p>
+        ) : (
+          movies.map((movie) => {
+            return (
               <div
-                className="movie__container__content__text"
-                
+                key={movie.imdbID}
+                className="movie__container__content"
+                style={{ backgroundImage: `url(${movie.Poster})` }}
               >
+                <div className="movie__container__content__text">
                   <h2>{movie.Title}</h2>
                   <p>{movie.Year}</p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </section>
   );

@@ -1,9 +1,12 @@
-@import 'reset';
-@import 'variables';
-@import 'functions';
-@import 'App';
+@import "reset";
+@import "variables";
+@import "functions";
+@import "App";
 
 body {
   background-color: $light-yellow;
   padding: toRem(34px) toRem(24px);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
