@@ -17,11 +17,13 @@
       button {
         padding: toRem(5px) toRem(20px);
         width: 120px;
+        box-shadow: 2px 1px 0px 0px $green;
+        border: 2px solid $green;
         &:hover {
           cursor: pointer;
-          border: 2px solid $soft-red;
-          color: $soft-red;
           font-weight: bold;
+          color: $green;
+          box-shadow: 3px 2px 1px 0px $green;
         }
       }
       button[type="submit"] {
@@ -35,12 +37,12 @@
     justify-content: center;
     max-width: toRem($big);
     gap: toRem(20px);
-    &__not-exist {
+    .message {
       font-weight: bold;
       color: $soft-red;
     }
     &__content {
-      border: 4px dashed $soft-red;
+      border: 4px solid $green;
       width: toRem($small);
       height: toRem($small);
       background-size: cover;

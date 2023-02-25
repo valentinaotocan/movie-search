@@ -72,9 +72,9 @@ function App() {
       </form>
       <div className="movie__container">
         {loading && <p className="movie__container__loading">Loading...</p>}
-        {error && <p>Ooooooops! Something went wrong.</p>}
+        {error && <p className="message">Ooooooops! Something went wrong.</p>}
         {!loading && typeof movies === "undefined" && (
-          <p className="movie__container__not-exist">
+          <p className="message">
             Oops! The movie doesn't exist.
           </p>
         )}
