@@ -10,13 +10,29 @@ interface Movie {
 function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState<Movie[] | undefined>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   async function handleFetch() {
-    const response = await fetch(
-      `https://www.omdbapi.com/?s=${query}&apikey=5d763802`
-    );
-    const data = await response.json();
-    setMovies(data.Search);
+    // Before calling the API
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://www.omdbapi.com/?s=${query}&apikey=5d763802`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setMovies(data.Search);
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch (error) {
+      setError(true);
+    } finally {
+      // After response is received
+      setLoading(false);
+    }
   }
 
   return (
@@ -45,9 +61,15 @@ function App() {
         <button type="submit">Search</button>
       </form>
       <div className="movie__container">
-        {typeof movies === "undefined" ? (
-          <p className="movie__container__not-exist">Oops! The movie doesn't exist.</p>
-        ) : (
+        {loading && <p className="movie__container__loading">Loading...</p>}
+        {error && <p>Ooooooops! Something went wrong.</p>}
+        {!loading && typeof movies === "undefined" && (
+          <p className="movie__container__not-exist">
+            Oops! The movie doesn't exist.
+          </p>
+        )}
+        {!loading &&
+          typeof movies !== "undefined" &&
           movies.map((movie) => {
             return (
               <div
@@ -61,8 +83,7 @@ function App() {
                 </div>
               </div>
             );
-          })
-        )}
+          })}
       </div>
     </section>
   );
