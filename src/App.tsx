@@ -30,9 +30,14 @@ function App() {
     } catch (error) {
       setError(true);
     } finally {
-      // After response is received
       setLoading(false);
     }
+  }
+
+  function handleClear() {
+    setQuery("");
+    setMovies([]);
+    setError(false);
   }
 
   return (
@@ -58,7 +63,12 @@ function App() {
             setQuery(event.target.value);
           }}
         />
-        <button type="submit">Search</button>
+        <div className="btn">
+          <button type="submit">Search</button>
+          <button type="button" onClick={handleClear}>
+            Clear
+          </button>
+        </div>
       </form>
       <div className="movie__container">
         {loading && <p className="movie__container__loading">Loading...</p>}

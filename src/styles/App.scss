@@ -4,24 +4,29 @@
   align-items: center;
   text-align: center;
   h1 {
-    margin-bottom: toRem(5px);
+    margin-bottom: toRem(10px);
   }
   form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    button {
-      margin: toRem(25px) 0;
-      padding: toRem(5px) toRem(25px);
-      &:hover {
-        cursor: pointer;
-        border: 2px solid $soft-red;
-        color: $soft-red;
-        font-weight: bold;
-      }
-    }
     input {
-      padding-left: toRem(5px);
+      padding: toRem(5px);
+    }
+    .btn {
+      margin: toRem(30px);
+      button {
+        padding: toRem(5px) toRem(20px);
+        width: 120px;
+        &:hover {
+          cursor: pointer;
+          border: 2px solid $soft-red;
+          color: $soft-red;
+          font-weight: bold;
+        }
+      }
+      button[type="submit"] {
+        margin-right: toRem(10px);
+      }
     }
   }
   &__container {
@@ -46,6 +51,17 @@
       }
       @media (max-width: toRem(372px)) {
         width: toRem(200px);
+      }
+    }
+  }
+  @media (max-width: toRem(375px)) {
+    form .btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      button[type="submit"] {
+        margin-right: 0;
+        margin-bottom: toRem(10px);
       }
     }
   }
