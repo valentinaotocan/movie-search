@@ -70,6 +70,7 @@ function App() {
           </button>
         </div>
       </form>
+      
       <div className="movie__container">
         {loading && <p className="movie__container__loading">Loading...</p>}
         {error && <p className="message">Ooooooops! Something went wrong.</p>}
