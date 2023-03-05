@@ -1,0 +1,19 @@
+.skeleton {
+  background-color: $white;
+  border: none;
+  animation: blink 1.5s infinite;
+  .header {
+    background-color: $grey;
+    height: 50px;
+  }
+}
+
+/* Skeleton animation*/
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

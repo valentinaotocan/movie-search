@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SkeletonLoader from "./SkeletonLoader";
 
 interface Movie {
   Title: string;
@@ -72,7 +73,7 @@ function App() {
       </form>
       
       <div className="movie__container">
-        {loading && <p className="movie__container__loading">Loading...</p>}
+        {loading && <SkeletonLoader />}
         {error && <p className="message">Ooooooops! Something went wrong.</p>}
         {!loading && typeof movies === "undefined" && (
           <p className="message">

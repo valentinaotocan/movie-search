@@ -2,6 +2,7 @@
 @import "variables";
 @import "functions";
 @import "App";
+@import 'SkeletonLoader';
 
 body {
   background-color: $light-yellow;
