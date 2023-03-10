@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import SkeletonLoader from "./SkeletonLoader";
+import Dropdown from "./Dropdown";
+import debounce from "lodash.debounce";
 
 interface Movie {
   Title: string;
@@ -13,6 +15,7 @@ function App() {
   const [movies, setMovies] = useState<Movie[] | undefined>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [dropdownItems, setDropdownItems] = useState<string[]>([]);
 
   async function handleFetch() {
     // Before calling the API
@@ -35,11 +38,41 @@ function App() {
     }
   }
 
+  function handleItemClick(item: string) {
+    setQuery(item);
+    setDropdownItems([]);
+  }
+
   function handleClear() {
     setQuery("");
     setMovies([]);
     setError(false);
   }
+
+  const autocomplete = useMemo(() =>
+      debounce(async (q: string) => {
+        if (q) {
+          const response = await fetch(
+            `https://www.omdbapi.com/?s=${q}&apikey=5d763802`
+          );
+          const data = await response.json();
+          if (data.Search) {
+            const titles = data.Search.map((movie: Movie) => movie.Title);
+            // Remove duplicates and ignore case sensitivity
+            const uniqueTitles = [...new Set(titles)].map((title) =>
+              String(title)
+            );
+            setDropdownItems(uniqueTitles);
+          } else {
+            setDropdownItems([]);
+          }
+        } else {
+          setDropdownItems([]);
+        }
+      }, 300),
+    []
+  );
+
 
   return (
     <section className="movie">
@@ -62,8 +95,10 @@ function App() {
           value={query}
           onChange={(event) => {
             setQuery(event.target.value);
+            autocomplete(event.target.value);
           }}
         />
+        <Dropdown items={dropdownItems} onItemClick={handleItemClick} />
         <div className="btn">
           <button type="submit">Search</button>
           <button type="button" onClick={handleClear}>
@@ -71,14 +106,12 @@ function App() {
           </button>
         </div>
       </form>
-      
+
       <div className="movie__container">
         {loading && <SkeletonLoader />}
         {error && <p className="message">Ooooooops! Something went wrong.</p>}
         {!loading && typeof movies === "undefined" && (
-          <p className="message">
-            Oops! The movie doesn't exist.
-          </p>
+          <p className="message">Oops! The movie doesn't exist.</p>
         )}
         {!loading &&
           typeof movies !== "undefined" &&

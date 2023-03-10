@@ -1,0 +1,29 @@
+.dropdown {
+	position: absolute;
+	width: 100%;
+	border: 1px solid black;
+	border-top: none;
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+	background: white;
+
+	&-container {
+		position: relative;
+	}
+
+	&-item {
+		padding: 0.5rem 1rem;
+		border-top: 1px solid #eaeaea;
+		cursor: pointer;
+		&:hover {
+			background-color: $green;
+		}
+
+		&:first-child {
+			border-top: none;
+		}
+	}
+}
