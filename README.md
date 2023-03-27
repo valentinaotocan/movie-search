@@ -1,7 +1,7 @@
 # movie-search 
 ## 📽️ About:
 In my project I fetch data from https://www.omdbapi.com/. <br />
-You can search what movies are in the database.
+You can search what movies are in the database and click on a movie you want to checks its details.
 ## 🎞 Demo link:
 You can check my project at https://valentinaotocan.github.io/movie-search/.
 ## 📺 Technologies:
