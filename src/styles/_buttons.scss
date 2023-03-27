@@ -1,0 +1,27 @@
+.btn {
+  margin: toRem(30px);
+  button {
+    padding: toRem(5px) toRem(20px);
+    width: 120px;
+    box-shadow: 2px 1px 0px 0px $green;
+    border: 2px solid $green;
+    &:hover {
+      cursor: pointer;
+      font-weight: bold;
+      color: $green;
+      box-shadow: 3px 2px 1px 0px $green;
+    }
+  }
+  button[type="submit"] {
+    margin-right: toRem(10px);
+  }
+  @media (max-width: toRem(375px)) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button[type="submit"] {
+      margin-right: 0;
+      margin-bottom: toRem(10px);
+    }
+  }
+}
